@@ -1,0 +1,209 @@
+/* Reseteo básico y fuente */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #0d0d0d; /* Fondo oscuro del "salón arcade" */
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+/* La carcasa de la máquina */
+.arcade-cabinet {
+    background: #1a1a24;
+    padding: 20px;
+    border: 4px solid #333;
+    border-radius: 15px 15px 0 0;
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    width: 90%;
+    max-width: 1000px;
+}
+
+/* El letrero iluminado */
+.arcade-marquee {
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #000;
+    border: 2px solid #0ff;
+    box-shadow: inset 0 0 15px #0ff, 0 0 15px #0ff;
+}
+
+.arcade-marquee h1 {
+    color: #fff;
+    font-size: 1.5rem;
+    text-shadow: 2px 2px #ff00ff, -2px -2px #0ff; /* Efecto 3D Neón */
+}
+
+/* Contenedor de la pantalla con Aspect Ratio 4:3 */
+.arcade-screen-container {
+    position: relative;
+    background-color: #000;
+    width: 100%;
+    aspect-ratio: 4 / 3; /* Clave para la resolución clásica */
+    border: 10px solid #222;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset 0 0 30px rgba(0,0,0,0.8);
+}
+
+/* El texto de relleno por ahora */
+.video-placeholder p {
+    color: #0ff;
+    animation: blink 1.5s infinite;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* Simulación del Killfeed del CoD */
+.killfeed {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    text-align: right;
+    font-size: 0.7rem;
+    color: #ffcc00;
+    text-shadow: 1px 1px 0 #000;
+    z-index: 2; /* Para que quede sobre el video */
+}
+
+.killfeed p {
+    margin-bottom: 8px;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 5px;
+}
+
+/* Efecto de monitor CRT (Líneas horizontales) */
+.crt-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 10;
+    pointer-events: none; /* Permite hacer clic a través del overlay */
+}
+
+/* Botones de Navegación */
+.arcade-controls {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 30px;
+    padding: 10px;
+}
+
+.arcade-btn {
+    background: transparent;
+    border: 2px solid #ff00ff;
+    color: #ff00ff;
+    font-family: 'Press Start 2P', cursive;
+    padding: 15px 20px;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    box-shadow: 0 0 10px rgba(255, 0, 255, 0.5);
+}
+
+.arcade-btn:hover {
+    background: #ff00ff;
+    color: #000;
+    box-shadow: 0 0 20px #ff00ff;
+}
+
+/* Animación de parpadeo */
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+/* --- ESTILOS DEL MENÚ ROSTER --- */
+.roster-screen {
+    display: none; /* Oculto por defecto */
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    background-color: rgba(0, 0, 0, 0.95);
+    border: 3px solid #ff00ff; /* Borde neón para que parezca una ventana flotante */
+    box-shadow: 0 0 15px #ff00ff inset;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 5; /* Por debajo de las scanlines del monitor */
+    padding: 20px;
+    border-radius: 10px;
+}
+
+/* Al añadir la clase .active con JS, el menú se hace visible */
+.roster-screen.active {
+    display: flex; 
+}
+
+.roster-screen h2 {
+    color: #0ff;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px #ff00ff;
+    animation: blink 2s infinite;
+}
+
+.roster-list {
+    list-style: none;
+    width: 100%;
+    max-width: 400px;
+    overflow-y: auto; /* Por si el contenido crece */
+}
+
+.roster-item {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    border-bottom: 2px dashed #333;
+    padding-bottom: 5px;
+    font-size: 0.75rem;
+    color: #fff;
+    transition: all 0.3s ease;
+}
+
+.roster-item:hover {
+    background-color: rgba(0, 255, 255, 0.1);
+    padding-left: 10px;
+    border-bottom-color: #0ff;
+}
+
+.roster-item .role { color: #888; }
+.roster-item .name { color: #0ff; }
+
+/* Resaltar al Owner (Chan) */
+.roster-item.owner {
+    border-bottom: 2px solid #ffd700;
+    background: rgba(255, 215, 0, 0.1);
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px; 
+}
+
+.roster-item.owner .role {
+    color: #ffd700;
+    text-shadow: 0 0 5px #ffd700;
+}
+
+.roster-item.owner .name {
+    color: #fff;
+    text-shadow: 0 0 10px #ffd700;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Squad Reels | Arcade</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Fuente Pixelada de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <main class="arcade-cabinet">
+        <!-- Letrero superior -->
+        <header class="arcade-marquee">
+            <h1>GODCULT</h1>
+        </header>
+
+        <!-- Pantalla del Arcade (4:3) -->
+        <div class="arcade-screen-container">
+            <div class="crt-overlay"></div> <!-- Efecto de líneas de TV vieja -->
+            
+            <div class="killfeed">
+                <p>jewsfromspace 🎯 VOID HORA</p>
+                <p>folk leonard 🎯 bah humbug</p>
+                <p>EMILE 🎯 Jeddzie</p>
+            </div>
+
+            <!-- Menú Roster Desplegable (Oculto por defecto) -->
+            <div id="roster-menu" class="roster-screen">
+                <h2>GODCULT MEMBERS</h2>
+                <ul class="roster-list">
+                    <!-- Owner destacado -->
+                    <li class="roster-item owner">
+                        <span class="role">👑 OWNER</span>
+                        <span class="name">CHAN</span>
+                    </li>
+                    <!-- Miembros en orden alfabético -->
+                    <li class="roster-item"><span class="role">FRAGGER</span><span class="name">DALCO</span></li>
+                    <li class="roster-item"><span class="role">FRAGGER</span><span class="name">KORIN</span></li>
+                    <li class="roster-item"><span class="role">FRAGGER</span><span class="name">KRVY</span></li>
+                    <li class="roster-item"><span class="role">FRAGGER</span><span class="name">LANCE</span></li>
+                    <li class="roster-item"><span class="role">FRAGGER</span><span class="name">NIGHT</span></li>
+                    <li class="roster-item"><span class="role">FRAGGER</span><span class="name">PBJZ</span></li>
+                </ul>
+            </div>
+
+            <!-- Aquí irá el video real más adelante, por ahora un placeholder -->
+            <div id="video-container" class="video-placeholder">
+                <p>WELCOME</p>
+            </div>
+        </div>
+
+        <!-- Panel de Control / Navegación -->
+        <nav class="arcade-controls">
+            <button id="btn-play" class="arcade-btn">PLAY</button>
+            <button id="btn-roster" class="arcade-btn">ROSTER</button>
+            <!-- ID agregado al botón NEXT VIDEO -->
+            <button id="btn-next" class="arcade-btn">NEXT VIDEO</button>
+        </nav>
+    </main>
+
+    <!-- Lógica de la maquinita -->
+    <script>
+        // Capturamos los elementos
+        const btnRoster = document.getElementById('btn-roster');
+        const btnPlay = document.getElementById('btn-play');
+        const btnNext = document.getElementById('btn-next');
+        const rosterMenu = document.getElementById('roster-menu');
+        const videoContainer = document.getElementById('video-container');
+
+        // Lista de los IDs de YouTube que agregaste
+        const playlist = [
+            'Gq0s1rpjhHU', // El original
+            'GcPUlW0mohc', // Nuevo clip 1
+            'N5-72VVCeo0'  // Nuevo clip 2
+        ];
+        
+        // Variable para rastrear qué video estamos viendo
+        let currentIndex = 0;
+
+        // Función para cargar el video en la pantalla
+        function playVideo(index) {
+            const videoId = playlist[index];
+            videoContainer.innerHTML = `
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;">
+                </iframe>
+            `;
+            // Asegurarse de que el roster no tape el video
+            rosterMenu.classList.remove('active');
+        }
+
+        // Escuchamos el clic en ROSTER
+        btnRoster.addEventListener('click', () => {
+            rosterMenu.classList.toggle('active');
+        });
+
+        // Escuchamos el clic en PLAY (reproduce el primer video o el actual)
+        btnPlay.addEventListener('click', () => {
+            playVideo(currentIndex);
+        });
+
+        // Escuchamos el clic en NEXT VIDEO (salta al siguiente clip)
+        btnNext.addEventListener('click', () => {
+            // Sumamos 1 al índice. Si llegamos al final, volvemos a 0 (loop).
+            currentIndex++;
+            if (currentIndex >= playlist.length) {
+                currentIndex = 0;
+            }
+            // Reproducimos el nuevo video
+            playVideo(currentIndex);
+        });
+    </script>
+
+    <!-- Efectos de Sonido Arcade (Archivos locales) -->
+    <audio id="sound-coin" src="coin.mp3" preload="auto"></audio>
+    <audio id="sound-blip" src="blip.mp3" preload="auto"></audio>
+    <audio id="sound-menu" src="menu.mp3" preload="auto"></audio>
+
+    <!-- Lógica de la maquinita -->
+    <script>
+        // ... (el script va aquí abajo)
+
+        <script>
+        // Capturamos los botones y contenedores
+        const btnRoster = document.getElementById('btn-roster');
+        const btnPlay = document.getElementById('btn-play');
+        const btnNext = document.getElementById('btn-next');
+        const rosterMenu = document.getElementById('roster-menu');
+        const videoContainer = document.getElementById('video-container');
+
+        // Capturamos los sonidos
+        const soundCoin = document.getElementById('sound-coin');
+        const soundBlip = document.getElementById('sound-blip');
+        const soundMenu = document.getElementById('sound-menu');
+
+        // Lista con los IDs de tus videos
+        const playlist = [
+            'Gq0s1rpjhHU', 
+            'GcPUlW0mohc', 
+            'N5-72VVCeo0'  
+        ];
+        
+        let currentVideoIndex = 0;
+
+        // Función que carga el video
+        function loadVideo(index) {
+            const videoId = playlist[index];
+            videoContainer.innerHTML = `
+                <iframe 
+                    width="100%" 
+                    height="100%" 
+                    src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    allowfullscreen
+                    style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 1;">
+                </iframe>
+            `;
+            rosterMenu.classList.remove('active');
+        }
+
+        // --- EVENTOS DE LOS BOTONES CON SONIDO ---
+
+        // Clic en ROSTER (Sonido de menú)
+        btnRoster.addEventListener('click', () => {
+            soundMenu.currentTime = 0; // Reinicia el sonido por si se hace clic rápido
+            soundMenu.play();          // Reproduce el sonido
+            rosterMenu.classList.toggle('active');
+        });
+
+        // Clic en PLAY (Sonido de "Insert Coin" estilo Pacman)
+        btnPlay.addEventListener('click', () => {
+            soundCoin.currentTime = 0;
+            soundCoin.play();
+            loadVideo(currentVideoIndex);
+        });
+
+        // Clic en NEXT VIDEO (Sonido de salto o "blip" clásico)
+        btnNext.addEventListener('click', () => {
+            soundBlip.currentTime = 0;
+            soundBlip.play();
+            currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
+            loadVideo(currentVideoIndex);
+        });
+    </script>
+
+</body>
+</html>
