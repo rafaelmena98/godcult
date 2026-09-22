@@ -11,23 +11,23 @@
 <body>
 
     <main class="arcade-cabinet">
-        <!-- Letrero superior -->
+        
         <header class="arcade-marquee">
             <h1>GODCULT</h1>
         </header>
 
-        <!-- Pantalla del Arcade (4:3) -->
+        
         <div class="arcade-screen-container">
-            <div class="crt-overlay"></div> <!-- Efecto de líneas de TV vieja -->
+            <div class="crt-overlay"></div> 
             
-            <!-- El killfeed que ahora desaparecerá al reproducir video -->
+            
             <div class="killfeed">
                 <p>jewsfromspace 🎯 VOID HORA</p>
                 <p>folk leonard 🎯 bah humbug</p>
                 <p>EMILE 🎯 Jeddzie</p>
             </div>
 
-            <!-- Menú Roster Desplegable (Oculto por defecto) -->
+            
             <div id="roster-menu" class="roster-screen">
                 <h2>GODCULT MEMBERS</h2>
                 <ul class="roster-list">
@@ -46,13 +46,13 @@
                 </ul>
             </div>
 
-            <!-- Contenedor del video -->
+            
             <div id="video-container" class="video-placeholder">
                 <p>WELCOME</p>
             </div>
         </div>
 
-        <!-- Panel de Control / Navegación -->
+        
         <nav class="arcade-controls">
             <button id="btn-play" class="arcade-btn">PLAY</button>
             <button id="btn-roster" class="arcade-btn">ROSTER</button>
@@ -60,27 +60,27 @@
         </nav>
     </main>
 
-    <!-- Efectos de Sonido Arcade (Archivos locales) -->
+    
     <audio id="sound-coin" src="coin.mp3" preload="auto"></audio>
     <audio id="sound-blip" src="blip.mp3" preload="auto"></audio>
     <audio id="sound-menu" src="menu.mp3" preload="auto"></audio>
 
-    <!-- Lógica de la maquinita (Unificada y limpia) -->
+    
     <script>
-        // 1. Capturamos todos los elementos de la interfaz
+        
         const btnRoster = document.getElementById('btn-roster');
         const btnPlay = document.getElementById('btn-play');
         const btnNext = document.getElementById('btn-next');
         const rosterMenu = document.getElementById('roster-menu');
         const videoContainer = document.getElementById('video-container');
-        const killfeed = document.querySelector('.killfeed'); // Capturamos el killfeed
+        const killfeed = document.querySelector('.killfeed'); 
 
-        // 2. Capturamos los sonidos
+        
         const soundCoin = document.getElementById('sound-coin');
         const soundBlip = document.getElementById('sound-blip');
         const soundMenu = document.getElementById('sound-menu');
 
-        // 3. Lista con los IDs de tus videos
+        
         const playlist = [
             'Gq0s1rpjhHU', 
             'GcPUlW0mohc', 
@@ -89,7 +89,7 @@
         
         let currentVideoIndex = 0;
 
-        // 4. Función central que carga el video y oculta elementos
+        
         function loadVideo(index) {
             const videoId = playlist[index];
             videoContainer.innerHTML = `
@@ -110,23 +110,23 @@
             killfeed.style.display = 'none'; 
         }
 
-        // --- EVENTOS DE LOS BOTONES ---
+        
 
-        // Clic en ROSTER
+        
         btnRoster.addEventListener('click', () => {
             soundMenu.currentTime = 0; 
             soundMenu.play();          
             rosterMenu.classList.toggle('active');
         });
 
-        // Clic en PLAY
+        
         btnPlay.addEventListener('click', () => {
             soundCoin.currentTime = 0;
             soundCoin.play();
             loadVideo(currentVideoIndex);
         });
 
-        // Clic en NEXT VIDEO
+        
         btnNext.addEventListener('click', () => {
             soundBlip.currentTime = 0;
             soundBlip.play();
