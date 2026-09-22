@@ -113,21 +113,25 @@
         
 
         
+// Clic en ROSTER
         btnRoster.addEventListener('click', () => {
+            soundMenu.volume = 0.1;  // Volumen al 20%
             soundMenu.currentTime = 0; 
             soundMenu.play();          
             rosterMenu.classList.toggle('active');
         });
 
-        
+        // Clic en PLAY
         btnPlay.addEventListener('click', () => {
+            soundCoin.volume = 0.1;  // Volumen al 20%
             soundCoin.currentTime = 0;
             soundCoin.play();
             loadVideo(currentVideoIndex);
         });
 
-        
+        // Clic en NEXT VIDEO
         btnNext.addEventListener('click', () => {
+            soundBlip.volume = 0.1;  // Volumen al 20%
             soundBlip.currentTime = 0;
             soundBlip.play();
             currentVideoIndex = (currentVideoIndex + 1) % playlist.length;
